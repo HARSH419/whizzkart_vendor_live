@@ -332,6 +332,7 @@ const LoginScreens = () => {
 };
 
 const mapStateToProps = state => {
+  console.log("token",state.isAuth.token);
   return {IsAuth: state.isAuth.token};
 };
 
