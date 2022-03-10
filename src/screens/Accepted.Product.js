@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, FlatList, SafeAreaView, View ,Text , Linking} from 'react-native';
+import {StyleSheet, FlatList, SafeAreaView, View ,Text , Linking, RefreshControl} from 'react-native';
 import {connect} from 'react-redux';
 import ProductComponent from '../components/ProductCard';
 import {GetALLProductList , getSupportdata} from '../actions';
@@ -81,7 +81,7 @@ constructor(props){
     
 
     const {productdata} = this.props;
-    const data = productdata.filter(i => i.status == 'Active');
+    const data = productdata.filter(i => i.status == 'Active' || i.status == 'InActive');
 
     return (
       <SafeAreaView style={{backgroundColor: '#FFF', height: '100%'}}>
@@ -93,11 +93,18 @@ constructor(props){
         ListEmptyComponent={<EmptyList/>}
           data={data}
           keyExtractor={data.id}
+        //   refreshControl={
+        //     <RefreshControl
+        //         refreshing={refreshing}
+        //         onRefresh={onRefresh}
+        //     />
+        // }
           renderItem={item => {
             return (
               <ProductComponent
                 title={item.item?.product_details?.name}
                 status={item.item?.status}
+                productId={item.item?.productId}
                 price={item.item?.product_price}
                 imageUrl={item.item?.product_details?.primaryimages?.imagePath}
                 placeholder={this.state.TestImage}

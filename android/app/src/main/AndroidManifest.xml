@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
+    <!-- <application android:requestLegacyExternalStorage="true" ... > -->
 
     <application
       android:name=".MainApplication"
@@ -16,7 +19,8 @@
       android:allowBackup="false"
       android:largeHeap="true"
        android:usesCleartextTraffic="true"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"
+      android:requestLegacyExternalStorage="true">
 
           <meta-data
      android:name="com.google.android.geo.API_KEY"

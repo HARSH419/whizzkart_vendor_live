@@ -37,12 +37,12 @@ class TodayOrder extends React.Component {
       this.setState({isLoding: false});
     });
 
-    setInterval(()=>{
-      this.props.GetOrder(()=>{
-        this.setState({isLoding: false});
-      });
+    // setInterval(()=>{
+    //   this.props.GetOrder(()=>{
+    //     this.setState({isLoding: false});
+    //   });
 
-    },15000)
+    // },15000)
    
 
   }

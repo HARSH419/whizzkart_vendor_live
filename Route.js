@@ -47,6 +47,8 @@ import CameraAndGalleryPicker from './src/components/CameraAndGalleryPicker';
 import UserNotVerifed from './src/screens/UserNotVerifed';
 import AboutApp from './src/screens/AboutApp';
 import messaging from '@react-native-firebase/messaging';
+import Toast from 'react-native-toast-message';
+
 import {
   notificationListener,
   requestUserPermission,
@@ -155,6 +157,7 @@ class Route extends React.Component {
             )}
           </Stack.Navigator>
         </NavigationContainer>
+        <Toast />
       </SafeAreaProvider>
     );
   }
@@ -332,7 +335,7 @@ const LoginScreens = () => {
 };
 
 const mapStateToProps = state => {
-  console.log("token",state.isAuth.token);
+  // console.log("tokenRoute",state.isAuth.token);
   return {IsAuth: state.isAuth.token};
 };
 

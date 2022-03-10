@@ -2,10 +2,10 @@ import {thisExpression} from '@babel/types';
 import {faPeopleArrows} from '@fortawesome/free-solid-svg-icons';
 import React , {useState} from 'react';
 
-import {Text, View, SafeAreaView, StyleSheet, ScrollView , Image} from 'react-native';
-import { State } from 'react-native-gesture-handler';
+import {Text, View, SafeAreaView, StyleSheet, ScrollView , Image, Alert} from 'react-native';
+import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
-import {getProfile} from '../actions';
+import {getProfile, UpdateProfileStatus} from '../actions';
 import { BASE_URL } from '../actions/const';
 import Loader from '../components/Loader';
 
@@ -16,7 +16,7 @@ const ImageCard = (props) => {
   return (
     <View style={style.imageCard}>
       <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Medium' , textTransform : 'uppercase' , color : '#000' , paddingVertical : 20}}>{props.title}</Text>
-<Image style={{width : 300 , height : 300}} source={ ImageError ? {uri : props.Test} :{uri: BASE_URL +"/"+props.name}} onError={() => setImageError(true)}/>
+      <Image style={{width : 300 , height : 300}} source={ ImageError ? {uri : props.Test} :{uri: BASE_URL +"/"+props.name}} onError={() => setImageError(true)}/>
     </View>
   )
 }
@@ -70,10 +70,45 @@ class Profile extends React.Component {
 
              <Text allowFontScaling={false} style={style.TextCard}>Email : {profile.email} </Text>
              <Text allowFontScaling={false} style={style.TextCard}>Mobile No : {profile.mobile} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Status : {profile.status} </Text>
+             <TouchableOpacity onPress={()=>{
+               Alert.alert(
+                profile.status == 'Active'
+                  ? 'Press Yes to InActivate YourSelf'
+                  : 'Press Yes to Activate YourSelf',
+                  "",
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log("Don't Do Anything"),
+                    style: 'cancel',
+                  },
+
+                  {
+                    text: 'Yes',
+                    onPress: () => {
+                      this.props.UpdateProfileStatus(
+                        profile.status == 'Active' ? 'InActive' : "Active",
+                        ()=>{
+                          this.setState({isLoding: true})
+                          this.props.getProfile(() => {
+                            this.setState({isLoding: false});
+                          })
+                        }
+                      );
+                      // Alert.alert('Product status change successfully');
+                    },
+                    style: 'cancel',
+                  },
+                ],
+              );
+             }}>
+             <Text allowFontScaling={false} style={[style.TextCard,{alignSelf: 'center', fontSize: 15}]}>Update Status</Text>
+             </TouchableOpacity>
              </View>
       
           <this.card title="Address" name={typeof profile?.vendor?.address == ('undefined'|| 'null')  ? ' ' : profile?.vendor?.address } />
-        <ImageCard Test={this.state.TestImage} title="gst certificate" name={!profile?.vendor?.gst_certificate ?  this.state.TestImage : profile?.vendor?.gst_certificate } /> 
+          <ImageCard Test={this.state.TestImage} title="gst certificate" name={!profile?.vendor?.gst_certificate ?  this.state.TestImage : profile?.vendor?.gst_certificate } />
           <ImageCard Test={this.state.TestImage} title="trade license" name={!profile?.vendor?.trade_license ?  this.state.TestImage : profile?.vendor?.trade_license } />
           <ImageCard Test={this.state.TestImage} title="id proof" name={!profile?.vendor?.id_proof ?  this.state.TestImage : profile.vendor?.id_proof } />
           <ImageCard Test={this.state.TestImage} title="fssi license" name={!profile?.vendor?.fssi_license ?  this.state.TestImage : profile?.vendor?.fssi_license} />
@@ -156,4 +191,4 @@ const mapStateToProps = state => {
   return {profile: state.GetProfile};
 };
 
-export default connect(mapStateToProps, {getProfile})(Profile);
+export default connect(mapStateToProps, {getProfile, UpdateProfileStatus})(Profile);

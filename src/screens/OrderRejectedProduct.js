@@ -36,12 +36,12 @@ class OrderRejectedProduct extends React.Component {
     this.setState({isLoding: false});
    });
 
-   setInterval(()=>{
-    this.props.RejectOrderList(()=> {
+  //  setInterval(()=>{
+  //   this.props.RejectOrderList(()=> {
 
-      this.setState({isLoding: false});
-     });
-   },15000)
+  //     this.setState({isLoding: false});
+  //    });
+  //  },15000)
 
   }
 

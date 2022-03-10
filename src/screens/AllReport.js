@@ -2,7 +2,16 @@ import {faDownload} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 
-import {SafeAreaView, Text, View,AlertIOS, FlatList,ToastAndroid, StyleSheet ,PermissionsAndroid} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  View,
+  AlertIOS,
+  FlatList,
+  ToastAndroid,
+  StyleSheet,
+  PermissionsAndroid,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {monthlyReport} from '../actions';
@@ -42,90 +51,109 @@ class AllReport extends React.Component {
     });
   }
 
-
   notifyMessage(msg) {
     if (Platform.OS === 'android') {
-      ToastAndroid.show(msg, ToastAndroid.LONG)
+      ToastAndroid.show(msg, ToastAndroid.LONG);
     } else {
       AlertIOS.alert(msg);
     }
   }
 
-
-  download(e){
-
-   
-    const {data , report} = this.props;
-
-    let obj ={};
-    let arr = [];
-
-
-  
-// for(let i=0 ; i <=Object.values(report).length ; i++){
-
-let dat = Object.entries(report);
-
-dat.forEach(el => {
-  el.forEach(ell =>{
-    if(ell == e){
-     obj = {...el}
+  async askForPermission() {
+    try {
+      console.log('enter askForPermission');
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE &&
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Whizzkart vender need storage Permission',
+          message: 'To Download an Report ',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // this.download(e);
+        return true;
+      } else {
+        console.log('Camera permission denied');
+        return false;
+      }
+    } catch (err) {
+      console.warn(err);
+      return false;
     }
+  }
 
-  })
+  // this.askForPermission()
 
+  download(e) {
+    const {data, report} = this.props;
+    let permission = this.askForPermission();
+    if (permission) {
+      let obj = {};
+      let arr = [];
 
+      // for(let i=0 ; i <=Object.values(report).length ; i++){
 
-})
+      let dat = Object.entries(report);
 
-const csvData = Object.values(obj);
+      // console.log('dta', dat);
 
+      dat.forEach(el => {
+        el.forEach(ell => {
+          if (ell == e) {
+            obj = {...el};
+          }
+        });
+      });
 
+      const csvData = Object.values(obj);
 
+      // }
 
+      var path = RNFS.DownloadDirectoryPath + `/Month${Date.now()}.csv`;
 
+      try {
+        const parser = new Parser();
+        const csv = parser.parse(csvData[1]);
+        // write the file
+        RNFS.writeFile(path, csv, 'utf8')
+          .then(success => {
+            alert('Download completed');
+            notifyMessage('Download completed');
+          })
+          .catch(err => {
+            // console.log(
+            //   'errH',
+            //   typeof err.message == 'string'
+            //     ? err.message.indexOf('Permission denied') != -1
+            //       ? this.askForPermission(e)
+            //       : 'false'
+            //     : err.message,
+            // );
+            console.log('errb', err.message);
+          });
+      } catch (err) {
+        console.error(err);
+      }
 
-// }
-
-var path = RNFS.DownloadDirectoryPath + `/Month${Date.now()}.csv`;
-
-try {
-  const parser = new Parser();
-  const csv = parser.parse(csvData[1]);
-// write the file
-RNFS.writeFile(path, csv , 'utf8')
-.then((success) => {
- alert("Download completed");
- notifyMessage('Download completed')
-})
-.catch((err) => {
- console.log(err.message);
-});
-
- 
-} catch (err) {
-  console.error(err);
-}
-
-
-
-
-// const { config, fs } = RNFetchBlob
-// let PictureDir = fs.dirs.PictureDir // this is the pictures directory. You can check the available directories in the wiki.
-// let options = {
-//   fileCache: true,
-//   addAndroidDownloads : {
-//     useDownloadManager : true, // setting it to true will use the device's native download manager and will be shown in the notification bar.
-//     notification : false,
-//     path:  PictureDir + "/me_"+Math.floor(date.getTime() + date.getSeconds() / 2), // this is the path where your downloaded file will live in
-//     description : 'Downloading image.'
-//   }
-// }
-// config(options).fetch('GET', "http://www.example.com/example.pdf").then((res) => {
-//   // do some magic here
-// })
-
-   
+      // const { config, fs } = RNFetchBlob
+      // let PictureDir = fs.dirs.PictureDir // this is the pictures directory. You can check the available directories in the wiki.
+      // let options = {
+      //   fileCache: true,
+      //   addAndroidDownloads : {
+      //     useDownloadManager : true, // setting it to true will use the device's native download manager and will be shown in the notification bar.
+      //     notification : false,
+      //     path:  PictureDir + "/me_"+Math.floor(date.getTime() + date.getSeconds() / 2), // this is the path where your downloaded file will live in
+      //     description : 'Downloading image.'
+      //   }
+      // }
+      // config(options).fetch('GET', "http://www.example.com/example.pdf").then((res) => {
+      //   // do some magic here
+      // })
+    }
   }
 
   render() {
@@ -142,7 +170,9 @@ RNFS.writeFile(path, csv , 'utf8')
             data={this.props.data}
             renderItem={item => {
               return (
-                <TouchableOpacity activeOpacity={1} onPress={()=> this.download(item.item)}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => this.download(item.item)}>
                   <ReportCard name={item.item} />
                 </TouchableOpacity>
               );
@@ -181,8 +211,8 @@ const style = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    data: Object.keys( state.MonthlyReport),
-    report : state.MonthlyReport
+    data: Object.keys(state.MonthlyReport),
+    report: state.MonthlyReport,
   };
 };
 
