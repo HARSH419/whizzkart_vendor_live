@@ -49,6 +49,37 @@ const notificationSould = () => {
     });
   });
 };
+const notificationSould1 = () => {
+  var whoosh = new Sound('ringbell1.wav', Sound.MAIN_BUNDLE, error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        whoosh.getDuration() +
+        'number of channels: ' +
+        whoosh.getNumberOfChannels(),
+    );
+
+    // AcceptedOrderList(() => {
+    //   console.log('from notification AcceptedOrderList');
+    // });
+    // GetOrder(() => {
+    //   console.log('from notification GetOrder');
+    // });
+
+    // Play the sound with an onEnd callback
+    whoosh.play(success => {
+      if (success) {
+        console.log('successfully finished playing');
+      } else {
+        console.log('playback failed due to audio decoding errors');
+      }
+    });
+  });
+};
 
 // whoosh.release();
 
@@ -102,9 +133,14 @@ export const notificationListener = async (cb) => {
 
   messaging().onMessage(async remoteMassage => {
     console.log('foreground', remoteMassage);
+    console.log('datah', remoteMassage?.data?.status); //order_details  Order Cancelled
     const data = remoteMassage.notification.title;
     // whoosh.play();
-    notificationSould();
+    if(remoteMassage?.data?.status == "Order Placed" || remoteMassage?.data?.status == "Order Cancelled"){
+      notificationSould();
+    }else{
+      notificationSould1();
+    }
     showToaster('success', data?.toString());
     cb();
 

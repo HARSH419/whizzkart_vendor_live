@@ -45,6 +45,7 @@
     "react-native-push-notification": "^8.1.1",
     "react-native-reanimated": "^2.2.4",
     "react-native-rename": "^2.9.0",
+    "react-native-restart": "^0.0.24",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
     "react-native-share": "^7.2.1",

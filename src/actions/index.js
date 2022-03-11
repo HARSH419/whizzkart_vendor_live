@@ -221,7 +221,7 @@ export const UpdateAddress = (data, callback) => {
   return async dispatch => {
     try {
       const res = await api.post('/api/updateVendorAddress', {...data});
-      console.log(res.data);
+      // console.log(res.data);
       callback();
     } catch (error) {
       console.log(error);

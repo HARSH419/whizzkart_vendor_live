@@ -113,7 +113,9 @@ class Route extends React.Component {
     // console.log("notificationListener",notificationListener);
 
     this.props.isAuth();
+    console.log(this.props.IsAuth);
   }
+
 
   render() {
     return (

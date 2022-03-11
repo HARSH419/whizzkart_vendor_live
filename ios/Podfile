@@ -38,6 +38,8 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'RNFBMessaging', :path => '../node_modules/@react-native-firebase/messaging'
 
+  pod 'react-native-restart', :path => '../node_modules/react-native-restart'
+
   target 'vendorTests' do
     inherit! :complete
     # Pods for testing
