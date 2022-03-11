@@ -2,7 +2,7 @@ import React from 'react';
 
 /* Adding redux here  */
 import {connect} from 'react-redux';
-import {isAuth} from './src/actions';
+import {isAuth, GetOrder, AcceptedOrderList} from './src/actions';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
@@ -53,6 +53,7 @@ import {
   notificationListener,
   requestUserPermission,
 } from './src/lib/notificationService';
+// import notificationListener from './src/lib/notificationService';
 
 /* 
 creating store for dev and production
@@ -95,13 +96,21 @@ class Route extends React.Component {
 
   constructor(props) {
     super(props);
+
     // this.ProductBar = this.ProductBar.bind(this);
   }
 
   componentDidMount() {
     requestUserPermission();
-    notificationListener();
-  
+    notificationListener(() => {
+      this.props.GetOrder(()=>{
+        console.log("from notification");
+      })
+      this.props.AcceptedOrderList(()=>{
+        console.log("from notification");
+      })
+    });
+    // console.log("notificationListener",notificationListener);
 
     this.props.isAuth();
   }
@@ -339,4 +348,4 @@ const mapStateToProps = state => {
   return {IsAuth: state.isAuth.token};
 };
 
-export default connect(mapStateToProps, {isAuth})(Route);
+export default connect(mapStateToProps, {isAuth, GetOrder, AcceptedOrderList})(Route);

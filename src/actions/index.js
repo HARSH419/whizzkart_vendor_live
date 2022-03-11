@@ -203,16 +203,20 @@ export const DashboardInfo = () => {
 };
 
 export const GetOrder = callback => {
-  console.log('GetOrder1');
   return async dispatch => {
-    const response = await api.get('/api/getNewOrder');
-
-    dispatch({type: GET_ORDER, payload: response.data});
-    callback();
+    try {
+      console.log('GetOrder1',dispatch);
+      const response = await api.get('/api/getNewOrder');
+      console.log('209', response.data);
+      dispatch({type: GET_ORDER, payload: response.data});
+      callback();
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
-export const UpdateAddress = (data,callback) => {
+export const UpdateAddress = (data, callback) => {
   console.log('UpdateAddress');
   return async dispatch => {
     try {
@@ -260,6 +264,7 @@ export const RejectOrderList = callback => {
 };
 
 export const AcceptedOrderList = callback => {
+  console.log('AcceptedOrderList');
   return async dispatch => {
     const response = await api.get('/api/getOrderByStatus');
 

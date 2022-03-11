@@ -8,7 +8,7 @@ export default ( state ={} , action) =>{
         case GET_ORDER: 
         
      
-        return {...state , ..._.mapKeys(action.payload.data , 'order_id' )}
+        return {..._.mapKeys(action.payload.data , 'order_id' )}
         // return action.payload.data
 
        case ORDER_ACCEPTED :

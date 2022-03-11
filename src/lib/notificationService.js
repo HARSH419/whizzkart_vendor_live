@@ -3,7 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Platform, ToastAndroid} from 'react-native';
 import Toast from 'react-native-toast-message';
 import Sound from 'react-native-sound';
-import { AcceptedOrderList, GetOrder } from '../actions';
+// import {AcceptedOrderList, GetOrder} from '../actions';
+import {connect} from 'react-redux';
 
 export async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -31,6 +32,13 @@ const notificationSould = () => {
         whoosh.getNumberOfChannels(),
     );
 
+    // AcceptedOrderList(() => {
+    //   console.log('from notification AcceptedOrderList');
+    // });
+    // GetOrder(() => {
+    //   console.log('from notification GetOrder');
+    // });
+
     // Play the sound with an onEnd callback
     whoosh.play(success => {
       if (success) {
@@ -43,8 +51,6 @@ const notificationSould = () => {
 };
 
 // whoosh.release();
-
-
 
 function notifyMessage(msg) {
   if (Platform.OS === 'android') {
@@ -83,7 +89,8 @@ export const showToaster = (useFor, message) => {
   }
 };
 
-export const notificationListener = async () => {
+export const notificationListener = async (cb) => {
+  console.log('not');
   messaging().onNotificationOpenedApp(remoteMassage => {
     remoteMassage.notification;
 
@@ -97,14 +104,10 @@ export const notificationListener = async () => {
     console.log('foreground', remoteMassage);
     const data = remoteMassage.notification.title;
     // whoosh.play();
-    notificationSould()
-    showToaster("success",data?.toString())
-    AcceptedOrderList(()=>{
-      console.log("from notification AcceptedOrderList");
-    })
-    GetOrder(()=>{
-      console.log("from notification GetOrder");
-    })
+    notificationSould();
+    showToaster('success', data?.toString());
+    cb();
+
     // notifyMessage(data.toString());
   });
 
@@ -123,3 +126,5 @@ export const notificationListener = async () => {
 
   //
 };
+
+// export default connect(null, {AcceptedOrderList, GetOrder})(notificationSould);

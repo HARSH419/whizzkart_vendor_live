@@ -8,7 +8,7 @@ export default ( state ={} , action) =>{
         case ACCEPTED_ORDER_LIST: 
         
      
-        return {...state , ..._.mapKeys(action.payload.data?.Accepted , 'order_id' ),..._.mapKeys(action.payload.data?.Delivered , 'order_id' ),..._.mapKeys(action.payload.data?.Cancelled , 'order_id' )}
+        return {..._.mapKeys(action.payload.data?.VendorAccept , 'order_id' ),..._.mapKeys(action.payload.data?.Accepted , 'order_id' ),..._.mapKeys(action.payload.data?.Delivered , 'order_id' ),..._.mapKeys(action.payload.data?.Cancelled , 'order_id' )}
       
 
         default:

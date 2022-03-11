@@ -35,7 +35,7 @@ import {Field, reduxForm} from 'redux-form';
 import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
 import CheckBox from '@react-native-community/checkbox';
 import Modal from 'react-native-modal';
-import PlaceSearch, { COLOR, FONT_POPP } from './PlaceSearch';
+import PlaceSearch, {COLOR, FONT_POPP} from './PlaceSearch';
 import MapLocations from './MapLocations';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -60,7 +60,7 @@ class Register extends React.Component {
       isPlaceModelOn: false,
       placeId: null,
       isMapModelOn: false,
-      PageSelectorValue : 1,
+      PageSelectorValue: 1,
 
       Errorgst: false,
       Errorprofile: false,
@@ -127,10 +127,8 @@ class Register extends React.Component {
       // const add = await RNFS.readFile(AddProof.uri, 'base64');
 
       this.setState({
-        PageSelectorValue : 2
+        PageSelectorValue: 2,
       });
-
-      
 
       // let data = {
       //   name: Name,
@@ -438,7 +436,7 @@ class Register extends React.Component {
             }}>
             {this.state.TermAndCondition ? (
               <CustomButtonNoIcon
-                      width={170}
+                width={170}
                 title={this.state.isloading ? 'Loading' : 'Register'}
                 color={this.state.isloading ? '#000000' : '#FFF'}
                 backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
@@ -528,70 +526,74 @@ class Register extends React.Component {
     const {Trade, FSSI, CancelCheque, gst, IDproof, AddProof, profile} =
       this.state;
 
-      const {vendorLocation} = this.props;
+    const {vendorLocation} = this.props;
 
     this.setState({isloading: true});
 
-  const fcm = await AsyncStorage.getItem('fcmToken');
+    const fcm = await AsyncStorage.getItem('fcmToken');
+    console.log("lat lon", vendorLocation[0]?.geometry?.location);
 
-      let data = {
-        name: Name,
-        email: Email,
-        mobile: MobileNumber,
-        password: Password,
-        user_type: 4,
-        lat : vendorLocation[0]?.geometry?.location?.lat,
-        lng : vendorLocation[0]?.geometry?.location?.lng,
-        fcm_token : fcm,
-        vendor: JSON.stringify({
-          image: profile,
-          trade_license: Trade,
-          cancelled_cheque: CancelCheque,
-          fssi_license: FSSI,
-          address_proof: AddProof,
-          id_proof: IDproof,
-          gst_certificate: gst,
-          address: Address,
-        }),
-      };
+    let data = {
+      name: Name,
+      email: Email,
+      mobile: MobileNumber,
+      password: Password,
+      user_type: 4,
+      lat: vendorLocation[0]?.geometry?.location?.lat,
+      lng: vendorLocation[0]?.geometry?.location?.lng,
+      fcm_token: fcm,
+      vendor: JSON.stringify({
+        image: profile,
+        trade_license: Trade,
+        cancelled_cheque: CancelCheque,
+        fssi_license: FSSI,
+        address_proof: AddProof,
+        id_proof: IDproof,
+        gst_certificate: gst,
+        address: Address,
+      }),
+    };
 
-      this.props.getRegister(data, e => {
-        if (e == 200) {
-          Alert.alert('Successful ', 'your application is submitted', [
-            {
-              text: 'OK',
-              onPress: () => this.props.navigation.navigate('Login'),
-            },
-          ]);
+    this.props.getRegister(data, e => {
+      if (e == 200) {
+        Alert.alert('Successful ', 'your application is submitted', [
+          {
+            text: 'OK',
+            onPress: () => this.props.navigation.navigate('Login'),
+          },
+        ]);
 
-          this.setState({isloading: false});
-        } else {
-          Alert.alert('Error ', e,[ {
+        this.setState({isloading: false});
+      } else {
+        Alert.alert('Error ', e, [
+          {
             text: 'Exit',
-            onPress: () => this.setState({
-              isPlaceModelOn: false,
-              isMapModelOn: false,
-              PageSelectorValue : 1
-            }),
-          },]);
+            onPress: () =>
+              this.setState({
+                isPlaceModelOn: false,
+                isMapModelOn: false,
+                PageSelectorValue: 1,
+              }),
+          },
+        ]);
 
-          this.setState({isloading: false});
-        }
-      });
-    
+        this.setState({isloading: false});
+      }
+    });
   }
-
 
   ModalMap() {
     return (
       <Modal isVisible={this.state.isMapModelOn} style={{margin: 0}}>
         <MapLocations
           Id={this.state.placeId}
-          onPress={ this.props.handleSubmit(this.onRegister)}
-          change ={()=> this.setState({
-            isPlaceModelOn: true,
-            isMapModelOn: false,
-          })}
+          onPress={this.props.handleSubmit(this.onRegister)}
+          change={() =>
+            this.setState({
+              isPlaceModelOn: true,
+              isMapModelOn: false,
+            })
+          }
         />
       </Modal>
     );
@@ -666,23 +668,30 @@ class Register extends React.Component {
       case 2:
         return this.PageTwo();
 
-        default : 
-         return this.FirstPage()
+      default:
+        return this.FirstPage();
     }
   }
 
-  LoaderModel(){
-
-    return(
+  LoaderModel() {
+    return (
       <Modal isVisible={this.state.isloading}>
-
-        <View style={{justifyContent : 'center' , alignItems : 'center' ,borderRadius : 10, height : 150,  backgroundColor : '#FFF'}}>
-     <ActivityIndicator color={ COLOR.BLACK} size='large'/>
-          <Text style={{fontFamily : FONT_POPP.MEDIUM , color : COLOR.BLACK}}> please wait...</Text>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            height: 150,
+            backgroundColor: '#FFF',
+          }}>
+          <ActivityIndicator color={COLOR.BLACK} size="large" />
+          <Text style={{fontFamily: FONT_POPP.MEDIUM, color: COLOR.BLACK}}>
+            {' '}
+            please wait...
+          </Text>
         </View>
-
       </Modal>
-    )
+    );
   }
 
   render() {
@@ -704,15 +713,15 @@ class Register extends React.Component {
 const style = flex =>
   StyleSheet.create({
     container: {
-      width : '100%',
+      width: '100%',
       height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
     },
     card: {
-      marginTop : 25,
-      marginHorizontal : 3,
-      marginVertical :5,
+      marginTop: 25,
+      marginHorizontal: 3,
+      marginVertical: 5,
       width: '100%',
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,
@@ -780,7 +789,6 @@ const validate = values => {
   if (values.Password != values.PasswordConfirm) {
     errors.PasswordConfirm = 'Password not match';
     errors.Password = 'Password not match';
-   
   }
 
   if (!values.Address) {

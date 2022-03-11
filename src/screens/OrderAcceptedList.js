@@ -90,7 +90,8 @@ class OrderAcceptedList extends React.Component {
                     }
                     addressTitle={item.item?.location?.area}
                     addressBody={fullAdd}
-                    status="Accepted"
+                    // status={"Accepted"}
+                    status={item?.item?.order_status}
                     placeholder={this.state?.TestImage}
                   />
                 </TouchableOpacity>
