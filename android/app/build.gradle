@@ -138,8 +138,8 @@ android {
         applicationId "com.whizzkart.vendor"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "11.0"
+        versionCode 12
+        versionName "12.0"
         vectorDrawables.useSupportLibrary = true
           multiDexEnabled true
     }
