@@ -33,11 +33,11 @@ api.interceptors.response.use(
       return Promise.reject(response?.data);
       // return Promise.reject({code: ' 423', msg: 'Unauthorized'});
     } 
-    else if (response?.data?.code && response?.data?.code !== 200) {
-      // if (response?.data?.code) {
-      return Promise.reject(response?.data);
-      // return Promise.reject({code: ' 423', msg: 'Unauthorized'});
-    }
+    // else if (response?.data?.code && response?.data?.code !== 200) {
+    //   // if (response?.data?.code) {
+    //   return Promise.reject(response?.data);
+    //   // return Promise.reject({code: ' 423', msg: 'Unauthorized'});
+    // }
     // try {
 
     // dispatch(LOGOUT_STATIC())  // for static Slice

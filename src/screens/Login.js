@@ -62,11 +62,13 @@ class Login extends React.Component {
     const fcm = await AsyncStorage.getItem('fcmToken')
     this.props.Auth(Email, Password,fcm , e => {
       this.setState({isLoading: false});
-      console.log(e);
-      if (e.code == 423) {
-        Alert.alert('Error ', e.error);
+      console.log("errxus",e?.message == "Request failed with status code 401");
+      if (e?.message == "Request failed with status code 401") {
+        Alert.alert('Error ', "Invalid Credential");
       } else if (e.code == 407) {
         this.props.navigation.navigate('NotVerify');
+      }else{
+        Alert.alert('Error ', e?.message || "Unable to Login\n Due to some technical issue");
       }
     });
   }
