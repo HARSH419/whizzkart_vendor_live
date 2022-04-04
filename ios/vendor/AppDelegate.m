@@ -32,7 +32,7 @@ static void InitializeFlipper(UIApplication *application) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    [FIRApp configure];  
+  [FIRApp configure];  
   
   [GMSServices provideAPIKey:@"AIzaSyDW_ogI4GsjE9rRg8oXity0_SyTwkmXk6Y"]; // add this line using the api key obtained from Google Console
 

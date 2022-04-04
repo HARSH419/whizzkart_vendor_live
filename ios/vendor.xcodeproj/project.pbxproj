@@ -142,7 +142,6 @@
 		13B07FAE1A68108700A75B9A /* vendor */ = {
 			isa = PBXGroup;
 			children = (
-				719298BC27FAF28E002300D1 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -225,6 +224,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				719298BC27FAF28E002300D1 /* GoogleService-Info.plist */,
 				719298D427FAF96D002300D1 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* vendor */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -629,7 +629,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whizzkart.vendor;
 				PRODUCT_NAME = vendor;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -654,7 +654,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whizzkart.vendor;
 				PRODUCT_NAME = vendor;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
