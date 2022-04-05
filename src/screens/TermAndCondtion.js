@@ -22,7 +22,7 @@ class TermAndCondtion extends React.Component {
     return (
       <SafeAreaView style={style().root}>
         <View style={{height :'100%'}}>
-          <WebView style={style().webview} javaScriptEnabled={true} originWhitelist={['*']} scalesPageToFit={true} source={ {uri : 'http://whizzkart.in/term-condition/app/vendor' || 'https://whizzkart.in/term-condition/app/vendor'}} />
+          <WebView style={style().webview} javaScriptEnabled={true} originWhitelist={['*']} scalesPageToFit={true} source={ {uri : 'https://whizzkart.in/term-condition/app/vendor' || 'https://whizzkart.in/term-condition/app/vendor'}} />
           
         </View>
       </SafeAreaView>

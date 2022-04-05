@@ -58,7 +58,7 @@ export const GET_SUPPORT_DATA = "GET_SUPPORT_DATA"
 
 export const GET_IMAGE_PROFILE = "GET_IMAGE_PROFILE";
 
-export const BASE_URL ="http://whizzkart.in";
+export const BASE_URL ="https://whizzkart.in";
 
 export const GOOGLE_SEARCH_LIST = "GSL"
 

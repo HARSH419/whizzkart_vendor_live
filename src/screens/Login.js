@@ -67,9 +67,10 @@ class Login extends React.Component {
         Alert.alert('Error ', "Invalid Credential");
       } else if (e.code == 407) {
         this.props.navigation.navigate('NotVerify');
-      }else{
-        Alert.alert('Error ', e?.message || "Unable to Login\n Due to some technical issue");
       }
+      // else{
+      //   Alert.alert('Error ', e?.message || "Unable to Login\n Due to some technical issue");
+      // }
     });
   }
 

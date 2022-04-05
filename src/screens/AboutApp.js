@@ -11,7 +11,7 @@ export default class AboutApp extends Component {
         return (
             <SafeAreaView style={style().root}>
         <View style={{height :'100%'}}>
-          <WebView style={style().webview} javaScriptEnabled={true} originWhitelist={['*']} scalesPageToFit={true} source={ {uri : 'http://whizzkart.in/about/app/vendor' || 'https://whizzkart.in/about/app/vendor'}} />
+          <WebView style={style().webview} javaScriptEnabled={true} originWhitelist={['*']} scalesPageToFit={true} source={ {uri : 'https://whizzkart.in/about/app/vendor' || 'https://whizzkart.in/about/app/vendor'}} />
           
         </View>
       </SafeAreaView>

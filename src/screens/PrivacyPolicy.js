@@ -22,7 +22,7 @@ class PrivacyPolicy extends React.Component {
     return (
       <SafeAreaView style={style().root}>
         <View style={{height :'100%'}}>
-          <WebView style={style().webview}  originWhitelist={['*']} scalesPageToFit={true} source={{uri : 'http://whizzkart.in/privacy-policy/app/vendor'||'https://whizzkart.in/privacy-policy/app/vendor' }}/>
+          <WebView style={style().webview}  originWhitelist={['*']} scalesPageToFit={true} source={{uri : 'https://whizzkart.in/privacy-policy/app/vendor'||'https://whizzkart.in/privacy-policy/app/vendor' }}/>
 
           
         </View>
