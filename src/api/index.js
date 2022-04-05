@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart';
 import Toast from 'react-native-toast-message';
 export const api = axios.create({
-  baseURL: 'http://whizzkart.in/',
+  baseURL: 'https://whizzkart.in/',
   responseType: 'json',
 });
 
