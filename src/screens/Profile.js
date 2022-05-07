@@ -66,11 +66,11 @@ class Profile extends React.Component {
            
            <View style={style.CardContainerStyle}>
              
-             <Text allowFontScaling={false} style={style.TextCard}>Name : {profile.name} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Name : {profile?.name} </Text>
 
-             <Text allowFontScaling={false} style={style.TextCard}>Email : {profile.email} </Text>
-             <Text allowFontScaling={false} style={style.TextCard}>Mobile No : {profile.mobile} </Text>
-             <Text allowFontScaling={false} style={style.TextCard}>Status : {profile.status} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Email : {profile?.email} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Mobile No : {profile?.mobile} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Status : {profile?.status} </Text>
              <TouchableOpacity onPress={()=>{
                Alert.alert(
                 profile.status == 'Active'

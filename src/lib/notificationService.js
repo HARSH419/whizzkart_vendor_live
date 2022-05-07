@@ -6,7 +6,8 @@ import Sound from 'react-native-sound';
 // import {AcceptedOrderList, GetOrder} from '../actions';
 import {connect} from 'react-redux';
 
-export async function requestUserPermission() {
+export async function requestUserPermission(cb) {
+  console.log("enter requestUserPermission");
   const authStatus = await messaging().requestPermission();
   const enabled =
     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -15,6 +16,9 @@ export async function requestUserPermission() {
   if (enabled) {
     console.log('Authorization status:', authStatus);
     getFcmToken();
+  }
+  if(cb){
+    cb()
   }
 }
 

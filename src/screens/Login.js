@@ -21,6 +21,7 @@ import validator from 'validator';
 import Loader from '../components/Loader';
 import {Auth} from '../actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { requestUserPermission } from '../lib/notificationService';
 // import {LoginForm , Auth , ErrorClose} from '../actions';
 
 class Login extends React.Component {
@@ -59,10 +60,23 @@ class Login extends React.Component {
     const {Email, Password} = values;
     this.setState({isLoading: true});
 
-    const fcm = await AsyncStorage.getItem('fcmToken')
+    let fcm = await AsyncStorage.getItem('fcmToken');
+    console.log({fcm});
+    if (!fcm) {
+      // Alert.alert("Not Found FCM");
+      requestUserPermission(() => {
+        this.onSubmit(values);
+      });
+    }
     this.props.Auth(Email, Password,fcm , e => {
       this.setState({isLoading: false});
       console.log("errxus",e?.message == "Request failed with status code 401");
+      // if (res?.data?.code == 406) {
+      //   await AsyncStorage.removeItem('fcmToken');
+      //   requestUserPermission(() => {
+      //     requestUserPermission();
+      //   });
+      // }
       if (e?.message == "Request failed with status code 401") {
         Alert.alert('Error ', "Invalid Credential");
       } else if (e.code == 407) {

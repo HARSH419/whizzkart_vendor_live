@@ -36,6 +36,7 @@ import {
 } from './const';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
 import {api} from '../api';
 
 import axios from 'axios';
@@ -134,7 +135,8 @@ export const ErrorClose = () => {
 export const Logout = () => {
   return async dispatch => {
     const token = await AsyncStorage.removeItem('Token');
-
+    let fcm = await AsyncStorage.removeItem('fcmToken');
+    console.log({fcm});
     dispatch({
       type: LOGOUT,
       payload: {
@@ -142,6 +144,7 @@ export const Logout = () => {
       },
     });
   };
+  RNRestart.Restart();
 };
 
 export const PrivacyPolicy = () => {
